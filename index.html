@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pixel to Pattern MVP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #colorPicker {
+      margin-bottom: 15px;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      grid-template-rows: repeat(10, 30px);
+      gap: 2px;
+      margin-bottom: 20px;
+    }
+    .pixel {
+      width: 30px;
+      height: 30px;
+      background-color: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    #generateBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #patternOutput {
+      white-space: pre-wrap;
+      background: #f5f5f5;
+      padding: 15px;
+      border: 1px solid #ddd;
+      min-height: 150px;
+      max-width: 320px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pixel to Pattern MVP</h1>
+
+  <label for="colorPicker">Select Color: </label>
+  <select id="colorPicker">
+    <option value="white">White</option>
+    <option value="yellow">Yellow</option>
+    <option value="gray">Gray</option>
+  </select>
+
+  <div id="grid"></div>
+
+  <button id="generateBtn">Generate Pattern</button>
+
+  <h2>Generated Crochet Pattern:</h2>
+  <div id="patternOutput"></div>
+
+  <script>
+    const gridSize = 10;
+    const gridEl = document.getElementById('grid');
+    const colorPicker = document.getElementById('colorPicker');
+    const patternOutput = document.getElementById('patternOutput');
+
+    // Initialize grid pixels
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const pixel = document.createElement('div');
+      pixel.classList.add('pixel');
+      pixel.dataset.color = 'white';
+      pixel.style.backgroundColor = 'white';
+
+      // Toggle pixel color on click to selected color
+      pixel.addEventListener('click', () => {
+        const selectedColor = colorPicker.value;
+        pixel.dataset.color = selectedColor;
+        pixel.style.backgroundColor = selectedColor;
+      });
+
+      gridEl.appendChild(pixel);
+    }
+
+    // Function to generate crochet pattern text
+    function generatePattern() {
+      const pixels = Array.from(document.querySelectorAll('.pixel'));
+      let patternText = '';
+
+      for (let row = 0; row < gridSize; row++) {
+        const rowPixels = pixels.slice(row * gridSize, (row + 1) * gridSize);
+        let currentColor = rowPixels[0].dataset.color;
+        let count = 0;
+        let rowPattern = [];
+
+        for (let px of rowPixels) {
+          if (px.dataset.color === currentColor) {
+            count++;
+          } else {
+            rowPattern.push(`${count} sc (${currentColor})`);
+            currentColor = px.dataset.color;
+            count = 1;
+          }
+        }
+        // Add last run
+        rowPattern.push(`${count} sc (${currentColor})`);
+
+        patternText += `Row ${row + 1}: ${rowPattern.join(', ')}\n`;
+      }
+
+      patternOutput.textContent = patternText;
+    }
+
+    document.getElementById('generateBtn').addEventListener('click', generatePattern);
+  </script>
+
+</body>
+</html>
