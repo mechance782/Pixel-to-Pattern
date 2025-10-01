@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "esm": "^3.2.25"
-  }
+    "esm": "^3.2.25",
+    "express": "^5.1.0"
+  },
+  "type":"module"
 }
