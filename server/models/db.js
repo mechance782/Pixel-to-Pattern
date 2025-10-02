@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
 
+// should probably change this to absolute path
 dotenv.config({
-    path: './db.env'
+    path: '../../db.env'
 });
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE, DB_PORT } = process.env;
 
+// set up sequelize connection to database
 const sequelize = new Sequelize(
     DB_DATABASE, DB_USER, DB_PASSWORD, {
         host: DB_HOST,
