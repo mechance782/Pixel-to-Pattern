@@ -1,7 +1,11 @@
-import {getAll} from '../models/index'
+import {getAllPatterns} from '../models/index'
 
 
-export const getUsers = (req, res) => {
-    const users = getAll();
-    res.json(users);
+export const getAllPatterns = async(req, res) => {
+    try{
+        const patterns = await getAllPatterns();
+        res.status(200).json(patterns);
+    } catch(err){
+        res.status(500).json({error: err.message});
+    }
 }

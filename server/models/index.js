@@ -1,4 +1,11 @@
+import { Patterns } from "./patterns";
 
-export const getAll = () => {
-    return [{name: 'Kim Mageary'}, {name: 'Madeleine Chance'}];
+export const getAllPatterns = async() => {
+    try{
+        const patterns = await Patterns.findAll();
+        return patterns;
+    } catch(err) {
+        console.error("Error fetching patterns:", err);
+        throw new Error("Error collecting all patterns in db");
+    }
 };
