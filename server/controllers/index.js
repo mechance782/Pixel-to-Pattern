@@ -1,7 +1,7 @@
-import {getAllPatterns} from '../models/index'
+import {getAllPatterns} from '../models/index.js'
 
 
-export const getAllPatterns = async(req, res) => {
+export const getAll = async(req, res) => {
     try{
         const patterns = await getAllPatterns();
         res.status(200).json(patterns);

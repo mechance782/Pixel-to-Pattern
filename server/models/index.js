@@ -1,4 +1,4 @@
-import { Patterns } from "./patterns";
+import { Patterns } from "./patterns.js";
 
 export const getAllPatterns = async() => {
     try{
