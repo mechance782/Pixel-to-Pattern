@@ -1,4 +1,4 @@
-import {getAllPatterns, getPattern, postPattern} from '../models/index.js'
+import {getAllPatterns, getPattern, postPattern} from '../models/model.js'
 
 
 export const getAll = async(req, res) => {

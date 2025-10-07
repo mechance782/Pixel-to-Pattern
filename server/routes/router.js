@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {getAll, getSpecificPattern, uploadPattern} from '../controllers/index.js';
+import {getAll, getSpecificPattern, uploadPattern} from '../controllers/controller.js';
 
 const router = Router();
 
