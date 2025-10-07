@@ -38,3 +38,5 @@ await Patterns.sync();
 //     pattern_rows: JSON.stringify(['row1', 'row2']),
 //     description: 'sample desc',
 // });
+
+export default Patterns;
