@@ -2,7 +2,7 @@ import sequelize from "./db.js";
 import { DataTypes } from 'sequelize';
 
 // Create schema that represents Patterns table in db
-const Patterns = sequelize.define('pattern', {
+export const Patterns = sequelize.define('pattern', {
     pattern_ID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -39,4 +39,3 @@ await Patterns.sync();
 //     description: 'sample desc',
 // });
 
-export default Patterns;
