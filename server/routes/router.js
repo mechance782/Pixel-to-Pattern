@@ -1,8 +1,9 @@
 import {Router} from 'express';
-import {getUsers} from '../controllers/index.js';
+import {getAll, getSpecificPattern} from '../controllers/index.js';
 
 const router = Router();
 
-router.get('/test', getUsers);
+router.get('/patterns', getAll);
+router.get('/patterns/:id', getSpecificPattern);
 
 export default router;
