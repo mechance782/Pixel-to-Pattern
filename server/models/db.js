@@ -1,10 +1,13 @@
 import dotenv from 'dotenv';
 import { Sequelize } from 'sequelize';
+import path from 'path';
 
-// should probably change this to absolute path
+
+const envPath = path.resolve(import.meta.dirname, '../../db.env');
 dotenv.config({
-    path: '../../db.env'
+    path: envPath
 });
+
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DATABASE, DB_PORT } = process.env;
 
