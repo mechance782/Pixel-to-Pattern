@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import PixelPost from "./PixelPost.jsx";
 export default function MainHome() {
 
     const [ pixelPosts, setPixelPosts] = useState([]);
     
     useEffect(() => {
-
         const fetchPosts = async () => {
             try {
                 const res = await fetch("http://localhost:3001/patterns");
@@ -16,15 +16,14 @@ export default function MainHome() {
                 console.error('failed to fetch posts ', error);
             } 
         }
-
         fetchPosts();
-        
-    })
+
+    }, []);
 
     return(
         <>
         {pixelPosts.map((post, index) => (
-            <h1>{console.log(post)}</h1>
+            <PixelPost key={index} post={post} />
         ))}
         
         </>

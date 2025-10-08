@@ -1,8 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
-export default function PixelPost() {
+import {Card, CardMedia, CardContent, Typography, Box, Skeleton} from '@mui/material';
+export default function PixelPost({ post }) {
+
+    // pattern_ID
+    // pattern_name
+    // pattern_rows (object)
+    // description
+    // date
+    const { pattern_ID: id, pattern_name: name, pattern_rows: rows, description, date} = post;
     
     return(
-        <></>
+        <>
+            <Card sx={{margin: 2, padding: 2, display: 'flex'}}>
+                <Skeleton variant="rectangular" width={150} height={150}/>
+                <Box sx={{padding: 2, width: "100%"}}>
+                    <Box sx={{display: 'flex', justifyContent: 'space-evenly'}}>
+                        <Typography>{name}</Typography>
+                        <Typography>author</Typography>
+                        <Typography>{date.slice(0,10)}</Typography>
+                    </Box>
+                    <hr/>
+                    <Typography color="textSecondary">{description}</Typography>
+                </Box>
+
+                
+            </Card>
+        </>
     )
 }
