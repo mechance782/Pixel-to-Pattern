@@ -7,6 +7,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import {useEffect, useState} from "react";
 
 export default function PixelForm() {
+    // form detail states
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
 
     // states for tools
     const [ pencil, setPencil] = useState(false);
@@ -43,9 +46,47 @@ export default function PixelForm() {
         }
     }
 
+    const submitPixelForm = async() =>{
+        const patternInfo = {
+            width: canvasWidth,
+            height: canvasHeight,
+            colorConfig: pixelFill
+        }
+
+        const formSubmissionInfo = {
+            pattern_name: name,
+            pattern_rows: patternInfo,
+            description: description
+        }
+
+        try{
+            const res = await fetch('http:localhost:3001/patterns',
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(formSubmissionInfo)
+                }
+            )
+            postID = await res.json();
+
+            if(!res.ok){
+                throw new Error(`PostID: ${postID} is not ok.`);
+            }
+        } catch (err) {
+            console.log("Error submitting pixel art info");
+        }
+    }
+
     return (
         // main body box
         <Box sx={{ margin: '2em 1em 2em 1em' }}>
+
+            {/* Name and description*/}
+            <Box>
+                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
+                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
+
+            </Box>
 
             {/* Tool info bar */}
             <Box>
@@ -74,7 +115,7 @@ export default function PixelForm() {
 
                 <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
 
-                <Button>Generate</Button>
+                <Button onClick={submitPixelForm}>Generate</Button>
             </Box>
 
             {/* Canvas Grid and pixels */}
