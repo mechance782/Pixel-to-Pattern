@@ -1,80 +1,83 @@
-Project Name: Pixel to Pattern
+# 🎨 Pixel to Pattern  - Create your perfect piece!
 
-Tagline: Create your perfect tapestry
+**Pixel to Pattern** turns your pixel art into beautiful, beginner friendly crochet patterns stitch by stitch, row by row.  
+Let the creativity flow!
 
-Target Users: Beginner- Advanced crocheters 
 
- 
 
-Feature Breakdown
 
-MVP Features: 
+## 🧶 Features
 
-    Create: Pixel drawing to be converted
-        Pixel drawing is converted to pattern row by row:
-        Basically counting how many pixels in a row are a certain color.
-        EX: ( sc = single crochet)
+### Create  
+Turn any pixel drawing into a crochet-ready pattern.  
+Each row lists the stitch counts per color, e.g.:
+        ( sc = single crochet)
         Row 1: 28 sc (white)
         Row 2: 9 sc (white), 10 sc (yellow), 9 sc (white)
         Row 3: 8 sc (white), 10 sc (yellow), 9 sc (white)
-     Read: All the submitted patterns
-     Update: TBD
-     Delete: Delete pattern user has posted 
 
-  
+### Read  
+Browse all submitted creations and view detailed stitch by stitch patterns.
 
-Extended:
+### Update *(Coming Soon!)*  
+Users will soon be able to edit their own patterns directly.
 
-     Comments under posts
-     Sidebar with links to crochet tutorials or pixel art tutorials
+### Delete  
+Remove any pattern you’ve posted with one click.
 
- 
 
-Data Model
 
-Core Entities: Users, Posts, Comments
 
-Key Relationships: Each post/comment has one User, can be viewed by all Users
+## ⚙️ Local Setup
 
-CRUD Operations: 
+Follow these steps to run **Pixel to Pattern** locally:
 
- Create: Pixel drawings, comments
+1. **Fork and clone** this repository to your machine.  
+2. In the root directory, create a `.env` file named `db.env`.  
+3. **Install dependencies** in both the `server/` and `front-end/` folders:
+   ```bash
+   npm install
+   ```
+4. Navigate to `server/` and start the backend:
+   ```bash
+   node server.js
+   ```
+5. Navigate to `front-end/`
+   ```bash
+     cd ../front-end
+     npm run dev
+   ```
+6. Open your browser at http://localhost:3000
+7. 🎨 Get creative!
 
- Read: All submitted drawings and comments
 
- Update: TBD
 
- Delete: Delete Patterns and comments
 
- 
+## Tech Stack
+- **Frontend:** NextJs, MaterialUI
+- **Backend:** Node.js, Express
+- **Database:** MySQL database with Sequelize used on the backend.
+- **Version:** Node 24+
 
-User Experience
 
-User Flows:
 
-     Land on Home Page that includes:
-        posts from other users
-        sidebar with resources/ links
-        Floating plus button to post
-     Add Post Page:
-        Generic canvas generated with responsive input at top of page to change canvas size
-        Drawing tools to left of canvas:
-            Pencil (fills one pixel)
-            Color 
-            Eraser
-            Fill Canvas
-            Clear Canvas
-     View Post Page
-        After User posts their canvas or clicks on post
-            Display image of pixel drawing
-            Underneath drawing, generated crochet pattern is written out
 
- 
+## Environment Variables
 
- 
+This project utilizes environment variables for configuration. You need to create a `db.env` file in the root directory based on the provided variable examples listed below.
 
-Madeleine Chance
+   **Required Variables:**
 
- 
+   *   `DB_USER`: The username for the user created to run the database.
+   *   `DB_PASSWORD`: Your password used to access the database.
+   *   `DB_HOST`: The IP for the virtual machine running the database.
+   *   `DB_DATABASE`: name of the database you need to access.
+   *   `DB_PORT`: The port number the database is running on.
 
-Software Development and Data Analytics Student, Green River College
+Edit `db.env` and replace placeholder values with your actual configuration.
+Restart your development server if it's already running (e.g., npm start).
+
+
+## Deployment Process
+Linked below is the documentation that was created while setting up the virtual machine for deployment.
+[Click Here!](https://loving-eye-8b5.notion.site/VM-Deployment-27e101a39e1480328574fee619f042d8)
