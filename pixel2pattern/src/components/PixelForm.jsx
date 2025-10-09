@@ -1,5 +1,5 @@
 "use client";
-import {IconButton, TextField, Box} from '@mui/material';
+import {IconButton, TextField, Box, Button} from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
@@ -73,6 +73,8 @@ export default function PixelForm() {
                 <TextField onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
 
                 <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
+
+                <Button>Generate</Button>
             </Box>
 
             {/* Canvas Grid and pixels */}
