@@ -19,6 +19,11 @@ export default function PixelForm() {
     const [canvasWidth, setCanvasWidth] = useState(10);
     const [ pixelFill, setPixelFill] = useState([]);
 
+    useEffect(() => {
+        const startPixels = Array(canvasHeight * canvasWidth).fill("#fff");
+        setPixelFill(startPixels);
+    }, [canvasHeight, canvasWidth]);
+
     // clear all tools except selected tool
     const clearTools = (setFunc) => {
         setPencil(false);
@@ -27,21 +32,15 @@ export default function PixelForm() {
         setFunc(true);
     }
 
-    useEffect(() => {
-        buildGrid(canvasHeight, canvasWidth);
-    }, [canvasHeight, canvasWidth]);
 
-    // Create pixels to fill grid
-    function buildGrid(height, width){
-        const pixels = [];
-        for (let i = 0; i < width * height; i++){
-            pixels.push(
-                // TODO: add onClick handlers for drawing!
-                <div key={i} style={{ width: '25px', height: '25px', border: '1px solid #ddd'}}>
-                </div>
-            )
+    const handlePixelEvent = (index) => {
+        if (pencil){
+            setPixelFill((prev) => prev.map((currentColor, i) => (i === index ? color : currentColor)));
+        } else if (eraser) {
+            setPixelFill((prev) => prev.map((currentColor, i) => (i === index ? "#fff" : currentColor)));
+        } else if (fillBucket){
+            setPixelFill((prev) => Array(prev.length).fill(color));
         }
-        setPixelFill(pixels);
     }
 
     return (
@@ -62,10 +61,12 @@ export default function PixelForm() {
                     <FormatColorFillIcon />
                 </IconButton>
 
-                {/* create onClick function: pop up are you sure? then clear canvas */}
+                {/* TODO: create onClick function: pop up are you sure? then clear canvas */}
                 <IconButton>
                     <ClearIcon />
                 </IconButton>
+
+                {/* TODO: add button to hide/show grid lines */}
 
                 <input type='color' value={color} onChange={(e) => setColor(e.target.value)} />
 
@@ -85,7 +86,19 @@ export default function PixelForm() {
                 gridTemplateColumns: `repeat(${canvasWidth}, 25px)`,
                 gridTemplateRows: `repeat(${canvasHeight}, 25px)`
             }}>
-                {pixelFill}
+                {pixelFill.map((currentColor, i) => (
+                    <div 
+                        key={i} 
+                        onClick={() => handlePixelEvent(i)}
+                        style={{ 
+                            width: '25px', 
+                            height: '25px', 
+                            border: '1px solid #ddd',
+                            backgroundColor: currentColor
+                        }}>
+
+                    </div>
+                ))}
             </Box>
         </Box>
     )
