@@ -60,20 +60,20 @@ export default function PixelForm() {
         }
 
         try{
-            const res = await fetch('http:localhost:3001/patterns',
+            const res = await fetch('http://localhost:3001/patterns',
                 {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(formSubmissionInfo)
                 }
             )
-            postID = await res.json();
+            const postID = await res.json();
 
             if(!res.ok){
                 throw new Error(`PostID: ${postID} is not ok.`);
             }
         } catch (err) {
-            console.log("Error submitting pixel art info");
+            console.log("Error submitting pixel art info ", err);
         }
     }
 
