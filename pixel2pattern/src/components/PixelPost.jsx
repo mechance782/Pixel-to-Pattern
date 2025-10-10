@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import {Card, CardMedia, CardContent, Typography, Box, Skeleton} from '@mui/material';
+import PixelDisplay from "./PixelDisplay.jsx";
 export default function PixelPost({ post }) {
 
     // pattern_ID
@@ -12,12 +13,12 @@ export default function PixelPost({ post }) {
     // }
     // description
     // date
-    const { pattern_ID: id, pattern_name: name, pattern_info: rows, description, date} = post;
+    const { pattern_ID: id, pattern_name: name, pattern_info: info, description, date} = post;
     
     return(
         <>
             <Card sx={{margin: 2, padding: 2, display: 'flex'}}>
-                <Skeleton variant="rectangular" width={150} height={150}/>
+                <PixelDisplay patternInfo={info} displayWidth={150} displayHeight={150}/>
                 <Box sx={{padding: 2, width: "100%"}}>
                     <Box sx={{display: 'flex', justifyContent: 'space-evenly'}}>
                         <Typography>{name}</Typography>
