@@ -55,7 +55,7 @@ export default function PixelForm() {
 
         const formSubmissionInfo = {
             pattern_name: name,
-            pattern_rows: patternInfo,
+            pattern_info: patternInfo,
             description: description
         }
 

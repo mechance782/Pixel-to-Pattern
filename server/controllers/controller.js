@@ -23,7 +23,7 @@ export const getSpecificPattern = async(req, res) => {
 
 export const uploadPattern = async (req, res) => {
     // expect JSON object from req body with this format:
-    // { pattern_name: "", pattern_rows: {}, description: ""}
+    // { pattern_name: "", pattern_info: {}, description: ""}
     const pattern = req.body;
 
     // ! TODO: add validation for name and description

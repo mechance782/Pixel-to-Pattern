@@ -12,7 +12,7 @@ export const Patterns = sequelize.define('pattern', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    pattern_rows: {
+    pattern_info: {
         type: DataTypes.JSON,
         allowNull: false
     },
@@ -35,7 +35,7 @@ await Patterns.sync();
 // sample data insertion:
 // await Patterns.create({
 //     pattern_name: "example",
-//     pattern_rows: JSON.stringify(['row1', 'row2']),
+//     pattern_info: JSON.stringify(['row1', 'row2']),
 //     description: 'sample desc',
 // });
 

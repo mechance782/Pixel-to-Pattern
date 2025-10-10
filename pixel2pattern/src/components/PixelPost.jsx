@@ -5,10 +5,14 @@ export default function PixelPost({ post }) {
 
     // pattern_ID
     // pattern_name
-    // pattern_rows (object)
+    // pattern_info: {
+    //  width: 0,
+    //  height: 0,
+    //  colorConfig: ['#fff', '#fff']
+    // }
     // description
     // date
-    const { pattern_ID: id, pattern_name: name, pattern_rows: rows, description, date} = post;
+    const { pattern_ID: id, pattern_name: name, pattern_info: rows, description, date} = post;
     
     return(
         <>
