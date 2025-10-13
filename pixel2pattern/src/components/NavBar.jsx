@@ -30,10 +30,10 @@ export default function NavBar() {
 
           {/* Navigation links */}
           <Box component="nav" sx={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/Home" passHref>
+            <Link href="/" passHref>
               <Button sx={{ fontSize: '1.5rem', color: 'inherit' }}>Home</Button>
             </Link>
-            <Link href="/Create" passHref>
+            <Link href="/create" passHref>
               <Button sx={{ fontSize: '1.5rem', color: 'inherit' }}>Create</Button>
             </Link>
             <Link href="/FAQs" passHref>
