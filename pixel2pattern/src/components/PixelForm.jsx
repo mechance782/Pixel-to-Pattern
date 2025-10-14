@@ -1,5 +1,5 @@
 "use client";
-import {IconButton, TextField, Box, Button} from '@mui/material';
+import {IconButton, TextField, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText} from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
@@ -16,6 +16,7 @@ export default function PixelForm() {
     const [eraser, setEraser] = useState(false);
     const [fillBucket, setFillBucket] = useState(false);
     const [ color, setColor] = useState("#000000");
+    const [ clearDrawingAlert, setClearDrawingAlert] = useState(false);
 
     // states for pixel canvas 
     const [ canvasHeight, setCanvasHeight] = useState(10);
@@ -35,7 +36,6 @@ export default function PixelForm() {
         setFunc(true);
     }
 
-
     const handlePixelEvent = (index) => {
         if (pencil){
             setPixelFill((prev) => prev.map((currentColor, i) => (i === index ? color : currentColor)));
@@ -44,6 +44,19 @@ export default function PixelForm() {
         } else if (fillBucket){
             setPixelFill((prev) => Array(prev.length).fill(color));
         }
+    }
+
+    const handleCloseClearAlert = () => {
+        setClearDrawingAlert(false);
+    }
+
+    const openClearAlert = () => {
+        setClearDrawingAlert(true);
+    }
+
+    const clearDrawing = () => {
+        setPixelFill((prev) => prev.fill("#fff"));
+        handleCloseClearAlert();
     }
 
     const submitPixelForm = async() =>{
@@ -79,14 +92,8 @@ export default function PixelForm() {
 
     return (
         // main body box
-        <Box sx={{ margin: '2em 1em 2em 1em' }}>
+        <Box sx={{ margin: '1em', backgroundColor: 'white', padding: '2em', borderRadius: '5px'}}>
 
-            {/* Name and description*/}
-            <Box>
-                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
-                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
-
-            </Box>
 
             {/* Tool info bar */}
             <Box>
@@ -103,9 +110,27 @@ export default function PixelForm() {
                 </IconButton>
 
                 {/* TODO: create onClick function: pop up are you sure? then clear canvas */}
-                <IconButton>
+                <IconButton onClick={() => openClearAlert()}>
                     <ClearIcon />
                 </IconButton>
+
+                <Dialog
+                    open={clearDrawingAlert}
+                    onClose={handleCloseClearAlert}
+                    aria-labelledby="Erase current drawing?"
+                >
+                    <DialogContent>
+                        <DialogContentText >
+                            Clear entire drawing?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions >
+                        <Button size='small' onClick={handleCloseClearAlert}>Disagree</Button>
+                        <Button size='small' onClick={clearDrawing} autoFocus>
+                            Agree
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
                 {/* TODO: add button to hide/show grid lines */}
 
@@ -116,6 +141,13 @@ export default function PixelForm() {
                 <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
 
                 <Button onClick={submitPixelForm}>Generate</Button>
+            </Box>
+
+            {/* Name and description*/}
+            <Box>
+                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
+                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
+
             </Box>
 
             {/* Canvas Grid and pixels */}
