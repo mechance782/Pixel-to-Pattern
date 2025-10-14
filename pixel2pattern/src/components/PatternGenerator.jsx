@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { CoPresent } from "@mui/icons-material";
+import { CoPresent, CrueltyFreeRounded } from "@mui/icons-material";
 
 export default function PatternGenerator({patternInfo}) {
 
@@ -26,30 +26,33 @@ export default function PatternGenerator({patternInfo}) {
         let rows = 1;
         let currentRowContents = `Row ${rows}: `;
         let groupSize = 1;
+        let tempPattern = [];
         for(let i = 0; i< colors.length-1; i++) {
              // Check to see if we need to move to another row
             if((i + 1) % width == 0) {
-                setPattern((prev) => [...prev, currentRowContents]);
-                currentRowContents = `Row ${rows}: `;
+                currentRowContents += (groupSize * widthMultiplier) + " S.C. in " + colors[i];
+                tempPattern.push(currentRowContents);
                 rows++;
+                currentRowContents = `Row ${rows}: `;
+                groupSize = 1;
             } else{
                 // Check if color is part of a group
                 if(colors[i] === colors[i+1]) groupSize++;
                 else {
                     currentRowContents += (groupSize * widthMultiplier) + " S.C. in " + colors[i] + ", ";
-                    console.log("Current row changed: ", currentRowContents);
                     groupSize = 1;
                 }
             }
-            
-
         }
+        setPattern(tempPattern);
 
     }
 
     return(
-        <Box>
-            <Typography>Loading...</Typography>
-        </Box>
+        <>
+            {pattern.length > 0 ? 
+            (<> {pattern.map((row) => <li>{row}</li>)}</>)
+            : (<Typography>Loading...</Typography>)}
+        </>
     )
 }
