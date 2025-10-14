@@ -24,7 +24,7 @@ export default function MainHome() {
     return(
         <>
         {pixelPosts.map((post, index) => (
-            <Link href={`/view/${post.pattern_ID}`}><PixelPost key={index} post={post} /></Link>
+            <Link href={`/view/${post.pattern_ID}`} key={index} ><PixelPost post={post} /></Link>
         ))}
         
         </>
