@@ -5,6 +5,7 @@ import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ClearIcon from '@mui/icons-material/Clear';
 import {useEffect, useState} from "react";
+import { useRouter } from 'next/navigation';
 
 export default function PixelForm() {
     // form detail states
@@ -22,6 +23,8 @@ export default function PixelForm() {
     const [ canvasHeight, setCanvasHeight] = useState(10);
     const [canvasWidth, setCanvasWidth] = useState(10);
     const [ pixelFill, setPixelFill] = useState([]);
+
+    const router = useRouter();
 
     useEffect(() => {
         const startPixels = Array(canvasHeight * canvasWidth).fill("#fff");
@@ -84,6 +87,8 @@ export default function PixelForm() {
 
             if(!res.ok){
                 throw new Error(`PostID: ${postID} is not ok.`);
+            } else {
+                router.push(`/view/${postID}`);
             }
         } catch (err) {
             console.log("Error submitting pixel art info ", err);
