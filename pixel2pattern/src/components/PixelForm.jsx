@@ -167,54 +167,56 @@ export default function PixelForm() {
             </Card>
 
             {/* Canvas Grid and pixels */}
-            <Box sx={{
-                display: 'grid',
-                justifyContent: 'center',
-                justifyItems: 'center',
-                width: 'fit-content',
-                margin: '1.5em auto 3em',
-                border: '1px solid #ccc',
-                gridTemplateColumns: `repeat(${canvasWidth}, 25px)`,
-                gridTemplateRows: `repeat(${canvasHeight}, 25px)`,
-                maxWidth: '626px',
-                maxHeight: '626px',
-                overflow: 'auto'
-            }}>
-                {pixelFill.map((currentColor, i) => (
-                    showGrid ?
-                    <div 
-                        key={i} 
-                        onClick={() => handlePixelEvent(i)}
-                        style={{ 
-                            width: '25px', 
-                            height: '25px', 
-                            border: '1px solid #ddd',
-                            backgroundColor: currentColor
-                        }}>
+            <Box sx={{backgroundColor: 'whitesmoke', width: '100%', padding: '2em'}}>
+                <Box sx={{
+                    display: 'grid',
+                    justifyContent: 'center',
+                    justifyItems: 'center',
+                    width: 'fit-content',
+                    margin: ' auto',
+                    border: '1px solid #ccc',
+                    gridTemplateColumns: `repeat(${canvasWidth}, 25px)`,
+                    gridTemplateRows: `repeat(${canvasHeight}, 25px)`,
+                    maxWidth: '626px',
+                    maxHeight: '626px',
+                    overflow: 'auto'
+                }}>
+                    {pixelFill.map((currentColor, i) => (
+                        showGrid ?
+                            <div
+                                key={i}
+                                onClick={() => handlePixelEvent(i)}
+                                style={{
+                                    width: '25px',
+                                    height: '25px',
+                                    border: '1px solid #ddd',
+                                    backgroundColor: currentColor
+                                }}>
 
-                    </div>
-                    :
-                    <div 
-                        key={i} 
-                        onClick={() => handlePixelEvent(i)}
-                        style={{ 
-                            width: '25px', 
-                            height: '25px', 
-                            border: 'none',
-                            backgroundColor: currentColor
-                        }}>
+                            </div>
+                            :
+                            <div
+                                key={i}
+                                onClick={() => handlePixelEvent(i)}
+                                style={{
+                                    width: '25px',
+                                    height: '25px',
+                                    border: 'none',
+                                    backgroundColor: currentColor
+                                }}>
 
-                    </div>
-                ))}
+                            </div>
+                    ))}
+                </Box>
             </Box>
 
             {/* Name and description*/}
-            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em', margin: '1em 2em 2em'}}>
                 <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
                 <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline rows={3} sx={{width: '50%', minWidth: '250px'}} label="Description"></TextField>
 
 
-                <Button size='large' variant='contained' sx={{ alignSelf: 'end', margin: '1em 2em' }} endIcon={<SendIcon />} onClick={submitPixelForm}>Generate Pattern</Button>
+                <Button size='large' variant='contained' sx={{ alignSelf: 'end' }} endIcon={<SendIcon />} onClick={submitPixelForm}>Generate Pattern</Button>
             </Box>
 
             
