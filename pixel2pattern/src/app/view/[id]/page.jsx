@@ -45,7 +45,7 @@ export default function PatternPage({params}) {
         </Typography>
       </Box>
       <hr />
-      <PatternGenerator patternInfo={[]}/>
+      <PatternGenerator patternInfo={post.pattern_info}/>
     </>
   );
 
