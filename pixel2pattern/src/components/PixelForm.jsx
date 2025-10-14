@@ -120,7 +120,7 @@ export default function PixelForm() {
             {/* Width and height */}
             <Box>
 
-                <TextField sx={{width: '100px'}} onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
+                <TextField sx={{width: '100px', marginRight: '1em'}} onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
                 <TextField sx={{width: '100px'}} onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
 
             </Box>
@@ -175,7 +175,10 @@ export default function PixelForm() {
                 margin: '1.5em auto 3em',
                 border: '1px solid #ccc',
                 gridTemplateColumns: `repeat(${canvasWidth}, 25px)`,
-                gridTemplateRows: `repeat(${canvasHeight}, 25px)`
+                gridTemplateRows: `repeat(${canvasHeight}, 25px)`,
+                maxWidth: '626px',
+                maxHeight: '626px',
+                overflow: 'auto'
             }}>
                 {pixelFill.map((currentColor, i) => (
                     showGrid ?
@@ -208,7 +211,9 @@ export default function PixelForm() {
             {/* Name and description*/}
             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em'}}>
                 <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
-                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
+                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline rows={3} sx={{width: '50%', minWidth: '250px'}} label="Description"></TextField>
+
+
                 <Button size='large' variant='contained' sx={{ alignSelf: 'end', margin: '1em 2em' }} endIcon={<SendIcon />} onClick={submitPixelForm}>Generate Pattern</Button>
             </Box>
 
