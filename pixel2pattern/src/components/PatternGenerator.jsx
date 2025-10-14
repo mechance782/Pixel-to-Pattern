@@ -6,7 +6,15 @@ import { CoPresent } from "@mui/icons-material";
 export default function PatternGenerator({patternInfo}) {
 
     const [widthMultiplier, setWidthMultiplier] = useState(1.0);
-    const [pattern, setPattern] = useState();
+    const [pattern, setPattern] = useState([]);
+
+    useEffect(() => {
+        generatePattern();
+    }, [])
+
+    useEffect(() => {
+        console.log(pattern);
+    }, pattern)
 
     // width
     // height
@@ -15,19 +23,28 @@ export default function PatternGenerator({patternInfo}) {
     const width = patternInfo.width;
 
     const generatePattern = () => {
-        const rows = 0;
-        const currentRowContents = "";
-        const groupSize = 1;
+        let rows = 1;
+        let currentRowContents = `Row ${rows}: `;
+        let groupSize = 1;
         for(let i = 0; i< colors.length-1; i++) {
-            if(colors[i] === colors[i+1]) groupSize++;
-            else {
-                currentRowContents += int(groupSize * widthMultiplier) + "S.C. in " + colors[i] + ", ";
-                groupSize = 1;
+             // Check to see if we need to move to another row
+            if((i + 1) % width == 0) {
+                setPattern((prev) => [...prev, currentRowContents]);
+                currentRowContents = `Row ${rows}: `;
+                rows++;
+            } else{
+                // Check if color is part of a group
+                if(colors[i] === colors[i+1]) groupSize++;
+                else {
+                    currentRowContents += (groupSize * widthMultiplier) + " S.C. in " + colors[i] + ", ";
+                    console.log("Current row changed: ", currentRowContents);
+                    groupSize = 1;
+                }
             }
-            // if(i -1 % width) {
-                
-            // }
+            
+
         }
+
     }
 
     return(
