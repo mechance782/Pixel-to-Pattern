@@ -51,7 +51,7 @@ export default function PatternGenerator({patternInfo}) {
     return(
         <>
             {pattern.length > 0 ? 
-            (<> {pattern.map((row) => <li>{row}</li>)}</>)
+            (<> {pattern.map((row, index) => <li key={index}>{row}</li>)}</>)
             : (<Typography>Loading...</Typography>)}
         </>
     )
