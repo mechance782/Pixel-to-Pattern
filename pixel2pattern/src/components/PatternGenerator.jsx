@@ -44,6 +44,10 @@ export default function PatternGenerator({patternInfo}) {
                 }
             }
         }
+
+        currentRowContents += (groupSize * widthMultiplier) + " S.C. in " + colors[colors.length-1];
+        tempPattern.push(currentRowContents);
+
         setPattern(tempPattern);
 
     }
