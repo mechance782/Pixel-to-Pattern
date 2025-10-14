@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import PixelPost from "./PixelPost.jsx";
+import Link from "next/link.js";
 export default function MainHome() {
 
     const [ pixelPosts, setPixelPosts] = useState([]);
@@ -23,7 +24,7 @@ export default function MainHome() {
     return(
         <>
         {pixelPosts.map((post, index) => (
-            <PixelPost key={index} post={post} />
+            <Link href={`/view/${post.pattern_ID}`}><PixelPost key={index} post={post} /></Link>
         ))}
         
         </>
