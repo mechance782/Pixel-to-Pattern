@@ -1,9 +1,10 @@
 "use client";
-import {IconButton, TextField, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText} from '@mui/material';
+import {IconButton, TextField, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Card} from '@mui/material';
 import CreateIcon from '@mui/icons-material/Create';
 import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ClearIcon from '@mui/icons-material/Clear';
+import SendIcon from '@mui/icons-material/Send';
 import {useEffect, useState} from "react";
 import { useRouter } from 'next/navigation';
 
@@ -97,24 +98,33 @@ export default function PixelForm() {
 
     return (
         // main body box
-        <Box sx={{ margin: '1em', backgroundColor: 'white', padding: '2em', borderRadius: '5px'}}>
+        <Card sx={{ margin: '1em', backgroundColor: 'white', padding: '2em'}}>
 
+            {/* Width and height */}
+            <Box>
+
+                <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
+                <TextField onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
+
+            </Box>
 
             {/* Tool info bar */}
-            <Box>
+            <Box sx={{ margin: '1em auto', width: 'fit-content', display: 'flex', justifyContent: 'space-around', gap: '1em'}}>
+                
+                <input style={{ height: '40px' }} type='color' value={color} onChange={(e) => setColor(e.target.value)} />
+                
                 <IconButton onClick={() => clearTools(setPencil)}>
                     <CreateIcon />
-                </IconButton>
-
-                <IconButton onClick={() => clearTools(setEraser)}>
-                    <AutoFixNormalIcon color='error' />
                 </IconButton>
 
                 <IconButton onClick={() => clearTools(setFillBucket)}>
                     <FormatColorFillIcon />
                 </IconButton>
 
-                {/* TODO: create onClick function: pop up are you sure? then clear canvas */}
+                <IconButton onClick={() => clearTools(setEraser)}>
+                    <AutoFixNormalIcon color='error' />
+                </IconButton>
+
                 <IconButton onClick={() => openClearAlert()}>
                     <ClearIcon />
                 </IconButton>
@@ -139,20 +149,6 @@ export default function PixelForm() {
 
                 {/* TODO: add button to hide/show grid lines */}
 
-                <input type='color' value={color} onChange={(e) => setColor(e.target.value)} />
-
-                <TextField onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
-
-                <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
-
-                <Button onClick={submitPixelForm}>Generate</Button>
-            </Box>
-
-            {/* Name and description*/}
-            <Box>
-                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
-                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
-
             </Box>
 
             {/* Canvas Grid and pixels */}
@@ -161,7 +157,7 @@ export default function PixelForm() {
                 justifyContent: 'center',
                 justifyItems: 'center',
                 width: 'fit-content',
-                margin: '1em auto',
+                margin: '1.5em auto 3em',
                 border: '1px solid #ccc',
                 gridTemplateColumns: `repeat(${canvasWidth}, 25px)`,
                 gridTemplateRows: `repeat(${canvasHeight}, 25px)`
@@ -180,6 +176,15 @@ export default function PixelForm() {
                     </div>
                 ))}
             </Box>
-        </Box>
+
+            {/* Name and description*/}
+            <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em'}}>
+                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
+                <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline label="Description"></TextField>
+                <Button size='large' variant='contained' sx={{ alignSelf: 'end', margin: '1em 2em' }} endIcon={<SendIcon />} onClick={submitPixelForm}>Generate Pattern</Button>
+            </Box>
+
+            
+        </Card>
     )
 }
