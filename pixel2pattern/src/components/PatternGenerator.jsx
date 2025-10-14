@@ -12,10 +12,6 @@ export default function PatternGenerator({patternInfo}) {
         generatePattern();
     }, [])
 
-    useEffect(() => {
-        console.log(pattern);
-    }, pattern)
-
     // width
     // height
     // colorConfig - [#000, #000, #000] color array
