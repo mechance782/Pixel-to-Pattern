@@ -25,8 +25,8 @@ export const getPattern = async(ID) => {
 export const postPattern = async (pattern) => {
     try {
         // expect JSON object from req body (pattern) with this format:
-        // { pattern_name: "", pattern_rows: {}, description: ""}
-        
+        // { pattern_name: "", pattern_info: {}, description: ""}
+
         const dbPattern = await Patterns.create(pattern);
         return dbPattern.pattern_ID;
     } catch (err) {
