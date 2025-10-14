@@ -1,10 +1,11 @@
 "use client";
-import {IconButton, TextField, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Card} from '@mui/material';
-import CreateIcon from '@mui/icons-material/Create';
-import AutoFixNormalIcon from '@mui/icons-material/AutoFixNormal';
+import {ToggleButtonGroup, ToggleButton, IconButton, TextField, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, Card} from '@mui/material';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import FormatColorFillIcon from '@mui/icons-material/FormatColorFill';
 import ClearIcon from '@mui/icons-material/Clear';
 import SendIcon from '@mui/icons-material/Send';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import DrawIcon from '@mui/icons-material/Draw';
 import {useEffect, useState} from "react";
 import { useRouter } from 'next/navigation';
 
@@ -14,11 +15,10 @@ export default function PixelForm() {
     const [description, setDescription] = useState("");
 
     // states for tools
-    const [ pencil, setPencil] = useState(false);
-    const [eraser, setEraser] = useState(false);
-    const [fillBucket, setFillBucket] = useState(false);
+    const [tool, setTool] = useState('pencil');
     const [ color, setColor] = useState("#000000");
     const [ clearDrawingAlert, setClearDrawingAlert] = useState(false);
+    const [showGrid, setShowGrid] = useState(true);
 
     // states for pixel canvas 
     const [ canvasHeight, setCanvasHeight] = useState(10);
@@ -32,20 +32,13 @@ export default function PixelForm() {
         setPixelFill(startPixels);
     }, [canvasHeight, canvasWidth]);
 
-    // clear all tools except selected tool
-    const clearTools = (setFunc) => {
-        setPencil(false);
-        setEraser(false);
-        setFillBucket(false);
-        setFunc(true);
-    }
 
     const handlePixelEvent = (index) => {
-        if (pencil){
+        if (tool == 'pencil'){
             setPixelFill((prev) => prev.map((currentColor, i) => (i === index ? color : currentColor)));
-        } else if (eraser) {
+        } else if (tool == 'eraser') {
             setPixelFill((prev) => prev.map((currentColor, i) => (i === index ? "#fff" : currentColor)));
-        } else if (fillBucket){
+        } else if (tool == 'fillBucket'){
             setPixelFill((prev) => Array(prev.length).fill(color));
         }
     }
@@ -96,60 +89,82 @@ export default function PixelForm() {
         }
     }
 
+    const ClearDrawingDialog = () =>{
+        return (
+            <Dialog
+                open={clearDrawingAlert}
+                onClose={handleCloseClearAlert}
+                aria-labelledby="Erase current drawing?"
+            >
+                <DialogContent>
+                    <DialogContentText >
+                        Clear entire drawing?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions >
+                    <Button size='small' onClick={handleCloseClearAlert}>Disagree</Button>
+                    <Button size='small' onClick={clearDrawing} autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        )
+    }
+
     return (
         // main body box
         <Card sx={{ margin: '1em', backgroundColor: 'white', padding: '2em'}}>
 
+            <ClearDrawingDialog />
+
             {/* Width and height */}
             <Box>
 
-                <TextField onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
-                <TextField onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
+                <TextField sx={{width: '100px'}} onChange={(e) => setCanvasWidth(e.target.value)} value={canvasWidth} label="Width"></TextField>
+                <TextField sx={{width: '100px'}} onChange={(e) => setCanvasHeight(e.target.value)} value={canvasHeight} label="Height"></TextField>
 
             </Box>
 
-            {/* Tool info bar */}
-            <Box sx={{ margin: '1em auto', width: 'fit-content', display: 'flex', justifyContent: 'space-around', gap: '1em'}}>
+            {/* drawing tool bar */}
+            <Card sx={{ borderRadius: '3em',padding: '1em', margin: '1em auto', width: 'fit-content', display: 'flex', justifyContent: 'space-around', gap: '1em'}}>
                 
-                <input style={{ height: '40px' }} type='color' value={color} onChange={(e) => setColor(e.target.value)} />
-                
-                <IconButton onClick={() => clearTools(setPencil)}>
-                    <CreateIcon />
-                </IconButton>
+                {/* color input */}
+                <input style={{ height: '45px' }} type='color' value={color} onChange={(e) => setColor(e.target.value)} />
 
-                <IconButton onClick={() => clearTools(setFillBucket)}>
-                    <FormatColorFillIcon />
-                </IconButton>
+                {/* tool select */}
+                <ToggleButtonGroup 
+                exclusive
+                value={tool}
+                onChange={(e, newTool) => setTool(newTool)}
+                aria-label='drawing tools'
+                >
+                    
+                    <ToggleButton value="pencil" aria-label='select pencil'>
+                        <DrawIcon />
+                    </ToggleButton>
+                    <ToggleButton value="fillBucket" aria-label='select fill bucket'> 
+                        <FormatColorFillIcon />
+                    </ToggleButton>
+                    <ToggleButton value="eraser" aria-label='select eraser'>
+                        <CreateOutlinedIcon sx={{transform: 'scaleY(-1) scaleX(-1)'}}/>
+                    </ToggleButton>
+                </ToggleButtonGroup>
 
-                <IconButton onClick={() => clearTools(setEraser)}>
-                    <AutoFixNormalIcon color='error' />
-                </IconButton>
+                {/* show grid toggle */}
+                <ToggleButton 
+                value="grid"
+                selected={showGrid}
+                onChange={() => setShowGrid((prev) => !prev)}
+                >
+                    <GridOnIcon />
+                </ToggleButton>
 
+                {/* clear canvas button */}
                 <IconButton onClick={() => openClearAlert()}>
                     <ClearIcon />
                 </IconButton>
 
-                <Dialog
-                    open={clearDrawingAlert}
-                    onClose={handleCloseClearAlert}
-                    aria-labelledby="Erase current drawing?"
-                >
-                    <DialogContent>
-                        <DialogContentText >
-                            Clear entire drawing?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions >
-                        <Button size='small' onClick={handleCloseClearAlert}>Disagree</Button>
-                        <Button size='small' onClick={clearDrawing} autoFocus>
-                            Agree
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-
-                {/* TODO: add button to hide/show grid lines */}
-
-            </Box>
+            </Card>
 
             {/* Canvas Grid and pixels */}
             <Box sx={{
@@ -163,6 +178,7 @@ export default function PixelForm() {
                 gridTemplateRows: `repeat(${canvasHeight}, 25px)`
             }}>
                 {pixelFill.map((currentColor, i) => (
+                    showGrid ?
                     <div 
                         key={i} 
                         onClick={() => handlePixelEvent(i)}
@@ -170,6 +186,18 @@ export default function PixelForm() {
                             width: '25px', 
                             height: '25px', 
                             border: '1px solid #ddd',
+                            backgroundColor: currentColor
+                        }}>
+
+                    </div>
+                    :
+                    <div 
+                        key={i} 
+                        onClick={() => handlePixelEvent(i)}
+                        style={{ 
+                            width: '25px', 
+                            height: '25px', 
+                            border: 'none',
                             backgroundColor: currentColor
                         }}>
 
