@@ -12,6 +12,7 @@ import PatternGenerator from "@/components/PatternGenerator";
 export default function PatternPage({params}) {
     const { id } = useParams();
     const [post, setPost] = useState(null);
+    const [patternConfig, setPatternConfig] = useState({});
 
     useEffect(()=> {
         const fetchPost = async () => {
@@ -20,6 +21,7 @@ export default function PatternPage({params}) {
                 if(!res.ok) throw new Error(`Failed to fetch post with ID: ${id}`);
                 const post = await res.json();
                 setPost(post);
+                setPatternConfig(post.pattern_info);
             } catch(err){
                 console.error('Failed to fetch post, ', err);
             }
@@ -45,7 +47,7 @@ export default function PatternPage({params}) {
         </Typography>
       </Box>
       <hr />
-      <PatternGenerator patternInfo={[]}/>
+      <PatternGenerator patternInfo={patternConfig}/>
     </>
   );
 
