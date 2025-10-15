@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import PixelPost from "./PixelPost.jsx";
 import Link from "next/link.js";
-export default function PostsCollection() {
+export default function MainHome() {
 
     const [ pixelPosts, setPixelPosts] = useState([]);
     

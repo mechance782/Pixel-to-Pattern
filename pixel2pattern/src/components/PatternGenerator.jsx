@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
-import { Typography } from "@mui/material";
+import { Typography, Card, Slider } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Divider from "@mui/material/Divider";
 import { useEffect, useState } from "react";
-import { CoPresent, CrueltyFreeRounded } from "@mui/icons-material";
 
 export default function PatternGenerator({patternInfo}) {
 
@@ -10,7 +11,7 @@ export default function PatternGenerator({patternInfo}) {
 
     useEffect(() => {
         generatePattern();
-    }, [])
+    }, [patternInfo, widthMultiplier])
 
     // width
     // height
@@ -49,10 +50,29 @@ export default function PatternGenerator({patternInfo}) {
     }
 
     return(
-        <>
-            {pattern.length > 0 ? 
-            (<> {pattern.map((row, index) => <li key={index}>{row}</li>)}</>)
-            : (<Typography>Loading...</Typography>)}
-        </>
-    )
+    <Box sx={{ p: 1 }}>
+        <Typography variant="h6" fontWeight="bold" gutterBottom>Pattern Generator</Typography>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+            <Slider value={widthMultiplier} onChange={(e, v) => setWidthMultiplier(v)} min={0.5} max={5} step={0.5} valueLabelDisplay="auto" sx={{ flex: 1 }}/>
+            <TextField size="small" type="number" label="×" value={widthMultiplier} onChange={(e) => setWidthMultiplier(parseFloat(e.target.value))} sx={{ width: 70 }} />
+        </Box>
+
+        <Divider sx={{ my: 1 }} />
+
+        {pattern.length ? (
+        <Box component="ul" sx={{ pl: 2, lineHeight: 1.6, m: 0}}>
+            {pattern.map((row, i) => (
+            <li key={i} style={{ fontSize: "0.9rem" }}>
+                {row}
+            </li>
+            ))}
+        </Box>
+        ) : (
+        <Typography variant="body2" color="text.secondary">
+            Generating pattern...
+        </Typography>
+        )}
+    </Box>
+    );
 }
