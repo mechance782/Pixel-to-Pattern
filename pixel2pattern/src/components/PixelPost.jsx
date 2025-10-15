@@ -17,7 +17,7 @@ export default function PixelPost({ post }) {
     
     return(
         <>
-            <Card sx={{margin: 2, padding: 2, display: 'flex'}}>
+            <Card sx={{marginBottom: 2, padding: 2, display: 'flex'}}>
                 <PixelDisplay patternInfo={info} displayWidth={150} displayHeight={150}/>
                 <Box sx={{padding: 2, width: "100%"}}>
                     <Box sx={{display: 'flex', justifyContent: 'space-evenly'}}>
