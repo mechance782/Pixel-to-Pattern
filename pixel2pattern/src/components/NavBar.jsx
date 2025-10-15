@@ -13,15 +13,15 @@ export default function NavBar() {
         position="static"
         sx={{
           pr: '10%',
-          background: 'linear-gradient(90deg, #bbe1ebff 0%, #318397ff 65%)', height: '20%'
+          background: 'linear-gradient(90deg, #bbe1ebff 0%, #318397ff 65%)',
         }}
       >
         <Toolbar>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <img
               alt="Logo"
-              style={{ margin: '15px', width: '30%', marginRight: '1rem' }}
-              src="../logo.png"
+              style={{ margin: '15px', height: '250px', width: 'auto', marginRight: '1rem' }}
+              src="logo.png"
             />
           </Box>
           <Typography sx={{ flexGrow: 1, ml: '3rem' }} variant="h3">
