@@ -13,7 +13,7 @@ export default function PixelForm() {
     // form detail states
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [author, setAuthor] = useState();
+    const [author, setAuthor] = useState("");
 
     // states for tools
     const [tool, setTool] = useState('pencil');

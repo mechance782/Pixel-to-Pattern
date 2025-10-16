@@ -14,19 +14,21 @@ export default function PixelPost({ post }) {
     // description
     // date
     const { pattern_ID: id, pattern_name: name, pattern_info: info, description, date} = post;
+    const author = post?.author || "Unknown";
     
     return(
         <>
             <Card sx={{marginBottom: 2, padding: 2, display: 'flex'}}>
                 <PixelDisplay patternInfo={info} displayWidth={150} displayHeight={150}/>
                 <Box sx={{padding: 2, width: "100%"}}>
-                    <Box sx={{display: 'flex', justifyContent: 'space-evenly'}}>
-                        <Typography>{name}</Typography>
-                        <Typography>author</Typography>
+                    <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Typography >{name}</Typography>
+                        
                         <Typography>{date.slice(0,10)}</Typography>
                     </Box>
                     <hr/>
                     <Typography color="textSecondary">{description}</Typography>
+                    <Typography color="textSecondary" textAlign="end"> - {author}</Typography>
                 </Box>
 
                 
