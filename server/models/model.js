@@ -1,5 +1,16 @@
 import { Patterns } from "./patterns.js";
 
+export const updatePattern = async(ID, pattern) => {
+    try{
+        await Patterns.update(pattern, {
+            where: {pattern_id: ID}
+        })
+    } catch (err) {
+        console.error(`Updating pattern with ID: ${ID} failed, `, err);
+        throw new Error('Failed to make those changes in the database.');
+    }
+}
+
 export const getAllPatterns = async() => {
     try{
         const patterns = await Patterns.findAll({order: [['date', 'DESC']]});

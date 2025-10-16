@@ -4,13 +4,25 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import NavBar from "@/components/NavBar";
 import PixelDisplay from "@/components/PixelDisplay";
+import EditIcon from '@mui/icons-material/Edit';
 import PatternGenerator from "@/components/PatternGenerator";
+import Button from "@mui/material/Button";
+import EditablePatternView from "@/components/EditablePatternView";
 
 
 export default function PatternPage({params}) {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [patternConfig, setPatternConfig] = useState({});
+    const [editView, setEditView] = useState(false);
+
+    const onCancel = () => {
+      setEditView(false);
+    }
+    const clickEditButton = () => {
+      console.log("Clicked!");
+      setEditView(true);
+    }
 
     useEffect(()=> {
         const fetchPost = async () => {
@@ -36,13 +48,17 @@ export default function PatternPage({params}) {
       <Box sx={{ backgroundColor: "#fafafa", py: 6, display: "flex", flexDirection: "row",
         justifyContent: "center", alignItems: "flex-start", gap: 4, flexWrap: "wrap", }} > 
         
-        <Card sx={{ flex: 1, minWidth: 350, maxWidth: 550, boxShadow: 3, borderRadius: 3, backgroundColor: "#fff" }} >
+        {!editView ? (
+          <Card sx={{ flex: 1, minWidth: 350, maxWidth: 550, boxShadow: 3, borderRadius: 3, backgroundColor: "#fff" }} >
           <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", p: { xs: 2, md: 3 }, }} >
             <PixelDisplay patternInfo={post.pattern_info} displayHeight={250} displayWidth={250} />
 
-            <Typography variant="h4" sx={{ fontWeight: "bold", mt: 2, mb: 1, color: "primary.main", }} >
-              {post.pattern_name}
-            </Typography>
+            <Box sx={{display:'flex'}}>
+              <Typography variant="h4" sx={{ fontWeight: "bold", mt: 2, mb: 1, color: "primary.main", }} >
+                {post.pattern_name}
+              </Typography>
+              <Button onClick={clickEditButton}> <EditIcon /> </Button>
+            </Box>
             <Typography variant="subtitle1" color="text.secondary">
               Author: <strong>Unknown</strong>
             </Typography>
@@ -57,6 +73,7 @@ export default function PatternPage({params}) {
             </Typography>
           </CardContent>
         </Card>
+        ) : (<EditablePatternView post={post} onCancel={onCancel} /> )}
         
         <Card sx={{ flex: 1, minWidth: 350, maxWidth: 550, maxHeight: '68vh', boxShadow: 2, 
           borderRadius: 3, backgroundColor: "#fff", p: { xs: 2, md: 3 }, overflowY: 'auto'}}>

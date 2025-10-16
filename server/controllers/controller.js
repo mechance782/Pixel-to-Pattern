@@ -1,5 +1,22 @@
-import {getAllPatterns, getPattern, postPattern} from '../models/model.js'
+import {getAllPatterns, getPattern, postPattern, updatePattern} from '../models/model.js'
 
+
+export const updatePatternController = async(req, res) => {
+    const patternInfo = req.body;
+    const ID = patternInfo.pattern_ID;
+    const pattern = {
+        pattern_name: patternInfo.patern_name,
+        pattern_author: patternInfo.author,
+        description: patternInfo.description
+    }
+    try{
+        await updatePattern(ID, pattern);
+        res.status(204);
+    } catch (err) {
+        return res.status(500).json({error: err.message});
+    }
+    
+}
 
 export const getAll = async(req, res) => {
     try{
