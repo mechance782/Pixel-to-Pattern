@@ -13,6 +13,7 @@ export default function PixelForm() {
     // form detail states
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [author, setAuthor] = useState("");
 
     // states for tools
     const [tool, setTool] = useState('pencil');
@@ -66,6 +67,7 @@ export default function PixelForm() {
         const formSubmissionInfo = {
             pattern_name: name,
             pattern_info: patternInfo,
+            author: author,
             description: description
         }
 
@@ -212,8 +214,10 @@ export default function PixelForm() {
 
             {/* Name and description*/}
             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1em', margin: '1em 2em 2em'}}>
-                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name"></TextField>
+                <TextField onChange={(e) => setName(e.target.value)} value={name} label="Name Your Pattern"></TextField>
+                <TextField onChange={(e) => setAuthor(e.target.value)} value={author} label="Author"></TextField>
                 <TextField onChange={(e) => setDescription(e.target.value)} value={description} multiline rows={3} sx={{width: '50%', minWidth: '250px'}} label="Description"></TextField>
+                
 
 
                 <Button size='large' variant='contained' sx={{ alignSelf: 'end' }} endIcon={<SendIcon />} onClick={submitPixelForm}>Generate Pattern</Button>

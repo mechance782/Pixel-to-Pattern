@@ -16,6 +16,9 @@ export const Patterns = sequelize.define('pattern', {
         type: DataTypes.JSON,
         allowNull: false
     },
+    author: {
+        type: DataTypes.STRING
+    },
     description: {
         type: DataTypes.STRING
     },
