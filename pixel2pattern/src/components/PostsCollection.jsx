@@ -9,7 +9,7 @@ export default function PostsCollection() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await fetch("http://localhost:3001/patterns");
+                const res = await fetch("http://64.23.248.1:3001/patterns");
                 if (!res.ok) throw new Error("failed to fetch posts");
                 const posts = await res.json();
                 setPixelPosts(posts);

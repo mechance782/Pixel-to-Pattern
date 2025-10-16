@@ -24,7 +24,7 @@ export default function EditablePatternView({ post, onCancel, params}) {
 
   const handleSubmit = async(e) => {
     try{
-        const res = await fetch(`http://localhost:3001/update/${id}`,
+        const res = await fetch(`http://64.23.248.1:3001/update/${id}`,
             {
                 method: 'PATCH',
                 headers: {"Content-Type": "application/json"},

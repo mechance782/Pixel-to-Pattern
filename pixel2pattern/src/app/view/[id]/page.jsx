@@ -27,7 +27,7 @@ export default function PatternPage({params}) {
     useEffect(()=> {
         const fetchPost = async () => {
             try{
-                const res = await fetch(`http://localhost:3001/patterns/${id}`);
+                const res = await fetch(`http://64.23.248.1:3001/patterns/${id}`);
                 if(!res.ok) throw new Error(`Failed to fetch post with ID: ${id}`);
                 const post = await res.json();
                 setPost(post);

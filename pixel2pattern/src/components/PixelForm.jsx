@@ -72,7 +72,7 @@ export default function PixelForm() {
         }
 
         try{
-            const res = await fetch('http://localhost:3001/patterns',
+            const res = await fetch('http://64.23.248.1:3001/patterns',
                 {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
