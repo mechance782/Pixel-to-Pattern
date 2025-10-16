@@ -2,7 +2,7 @@ import { Patterns } from "./patterns.js";
 
 export const getAllPatterns = async() => {
     try{
-        const patterns = await Patterns.findAll();
+        const patterns = await Patterns.findAll({order: [['date', 'DESC']]});
         return patterns;
     } catch(err) {
         console.error("Error fetching patterns:", err);
