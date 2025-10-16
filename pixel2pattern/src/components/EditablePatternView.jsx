@@ -64,7 +64,7 @@ export default function EditablePatternView({ post, onCancel, params}) {
         onChange={handleChange} variant="outlined" sx={{ width: "90%" }} />
 
         <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 3 }}>
-          <Button type="submit" variant="contained" color="primary" startIcon={<SaveIcon />} > 
+          <Button onClick={handleSubmit} type="submit" variant="contained" color="primary" startIcon={<SaveIcon />} > 
             Save
           </Button>
 

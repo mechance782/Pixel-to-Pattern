@@ -34,17 +34,16 @@ Follow these steps to run **Pixel to Pattern** locally:
 
 1. **Fork and clone** this repository to your machine.  
 2. In the root directory, create a `.env` file named `db.env`.  
-3. **Install dependencies** in both the `server/` and `front-end/` folders:
+3. **Install dependencies** in both the `server/` and `pixel2pattern/` folders:
    ```bash
    npm install
    ```
 4. Navigate to `server/` and start the backend:
    ```bash
-   node server.js
+   npm run dev
    ```
-5. Navigate to `front-end/`
+5. Navigate to `pixel2pattern/`
    ```bash
-     cd ../front-end
      npm run dev
    ```
 6. Open your browser at http://localhost:3000
