@@ -60,7 +60,7 @@ export default function PatternPage({params}) {
               <Button onClick={clickEditButton}> <EditIcon /> </Button>
             </Box>
             <Typography variant="subtitle1" color="text.secondary">
-              Author: <strong>Unknown</strong>
+              Author: <strong>{post?.author || "Unknown"}</strong>
             </Typography>
             <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2 }}>
               {post.date ? post.date.slice(0, 10) : ""}
